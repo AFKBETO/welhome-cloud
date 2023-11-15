@@ -1,20 +1,19 @@
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
-const express = require('express');
-const HTTPStatus = require('http-status');
-const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('./swagger-output.json')
-const cors = require('cors');
+import nodemailer from 'nodemailer';
+import bodyParser from 'body-parser';
+import express from 'express';
+import HTTPStatus from 'http-status';
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './swagger-output.json';
+import cors from 'cors';
+import { configMap } from './config';
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
+
 
 const configOptions = {
   service: 'gmail',
   auth: {
-    user: process.env.USER,
-    pass: process.env.PASSWORD
+    user: configMap.user,
+    pass: configMap.password
   }
 }
 
@@ -32,12 +31,12 @@ app.use(cors('*'));
 const router = express.Router();
 
 router.use(async (req:any, res:any, next:any) => {
-  if (!process.env.AUTH_API) {
+  if (configMap.auth_api.length === 0) {
     next();
   }
   try {
     const authorization = req.headers.authorization;
-    const response = await fetch(process.env.AUTH_API || '', {
+    const response = await fetch(configMap.auth_api, {
       method: 'POST',
       headers: {
         authorization: authorization
@@ -97,7 +96,7 @@ router.post('/mail', async (req:any, res:any) => {
   const { subject, htmlBody, recipients} = req.body;
 
   const mailOptions = {
-    from: process.env.USER,
+    from: configMap.user,
     to: recipients,
     subject,
     html: `Hello,<br><br>${htmlBody}<br><br>Best regards,<br>Welhome Team`
@@ -119,6 +118,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(router);
 
-app.listen(process.env.PORT || 3005, () => {
-  console.log('Server started in port ' + (process.env.PORT || 3005));
+app.listen(configMap.port, () => {
+  console.log('Server started in port ' + configMap.port);
 });
