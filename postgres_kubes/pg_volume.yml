@@ -8,6 +8,7 @@ metadata:
   labels:
     type: local
     app: postgresdb
+  namespace: ns-welhome
 spec:
   storageClassName: manual
   capacity:

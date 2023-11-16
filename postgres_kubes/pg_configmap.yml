@@ -6,6 +6,7 @@ metadata:
   name: db-configmap
   labels:
     app: postgresdb
+  namespace: ns-welhome
 data:
   # User DB
   POSTGRES_DB: testDB

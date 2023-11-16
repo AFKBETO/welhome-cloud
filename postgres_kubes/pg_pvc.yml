@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   # Name the volume chain
   name: db-persistent-volume-claim
+  namespace: ns-welhome
 spec:
   storageClassName: manual
   accessModes:

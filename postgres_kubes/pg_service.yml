@@ -6,12 +6,14 @@ metadata:
   name: postgresdb
   labels:
     app: postgresdb
+  namespace: ns-welhome
 spec:
   # Choose how to expose your service
   type: NodePort
   ports:
     # The port number to expose the service
     - port: 5432
+      nodePort: 30001
   # Pod to route service traffic  
   selector:
     app: postgresdb
