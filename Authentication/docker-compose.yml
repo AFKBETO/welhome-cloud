@@ -24,7 +24,8 @@ services:
       no_cache: true
       pull: true
     networks:
-      ipv4_address: 172.19.0.3
+      authNetwork:
+        ipv4_address: 172.19.0.3
     ports:
       - 3001:3001
     
