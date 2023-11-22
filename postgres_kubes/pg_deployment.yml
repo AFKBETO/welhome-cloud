@@ -29,9 +29,9 @@ spec:
             - containerPort: 5432
           envFrom:
             # Load the environment variables/PostgresSQL credentials
-            - configMapRef:
+            - secretRef:
                 # This should be the ConfigMap name created ealier
-                name: db-configmap
+                name: psql-secret
           volumeMounts:
             # The volume mounts  for the container
             - mountPath: /var/lib/postgres/data
