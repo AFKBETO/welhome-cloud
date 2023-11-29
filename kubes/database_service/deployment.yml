@@ -1,0 +1,29 @@
+﻿# Kubernetes API version
+apiVersion: apps/v1
+# Deployment object
+kind: Deployment
+metadata:
+  # The name of the Deployment
+  name: database-service
+  namespace: ns-welhome
+spec:
+  # Replicas for this Deployment
+  replicas: 1
+  selector:
+    # labels the pods
+    matchLabels:
+      app: database-service
+  template:
+    metadata:
+      labels:
+        # The label the pods created from the pod template should have
+        app: database-service
+    spec:
+      containers:
+        # The container name to execute pods
+        - name: database-service
+          image: database_service
+          imagePullPolicy: Never
+          ports:
+            # Assign ports to expose container
+            - containerPort: 9090
