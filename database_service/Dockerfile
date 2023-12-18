@@ -5,6 +5,7 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM eclipse-temurin:17-jdk-alpine
-COPY --from=build /usr/src/app/target/database_service-1.0.2.jar /usr/app/database_service-1.0.2.jar
-EXPOSE 9090  
-ENTRYPOINT ["java","-jar","/usr/app/database_service-1.0.2.jar"]
+WORKDIR /usr/app
+COPY --from=build /usr/src/app/target/database_service-1.0.2.jar database_service-1.0.2.jar
+EXPOSE 9090
+ENTRYPOINT ["java","-jar","/usr/app/database_service-1.0.2.jar", "-Dspring.config.location='file:/usr/app/application.properties'"]
