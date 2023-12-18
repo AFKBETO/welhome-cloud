@@ -22,8 +22,19 @@ spec:
       containers:
         # The container name to execute pods
         - name: database-service
-          image: database_service
-          imagePullPolicy: Never
+          image: localhost:5000/database_service:v2
           ports:
             # Assign ports to expose container
             - containerPort: 9090
+          volumeMounts:
+            - name: db-service-secret
+              mountPath: usr/app/application.properties
+              subPath: application.properties
+
+      volumes:
+        - name: db-service-secret 
+          secret:
+            secretName: database-service-secret
+            items:
+              - key: application.properties
+                path: application.properties
