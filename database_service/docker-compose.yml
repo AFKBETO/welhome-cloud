@@ -1,0 +1,29 @@
+version: '3'
+services:
+  database_service:
+    container_name: "database_service"
+    build:
+      tags:
+        - "database_service"
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./application.properties:/usr/app/application.properties
+    ports:
+      - 9090:9090
+    depends_on:
+      - postgresql
+
+  postgresql:
+    container_name: "postgresql"
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=testUser
+      - POSTGRES_PASSWORD=testPassword
+      - POSTGRES_DB=testDB
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    
+
