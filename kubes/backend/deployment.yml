@@ -1,0 +1,40 @@
+﻿# Kubernetes API version
+apiVersion: apps/v1
+# Deployment object
+kind: Deployment
+metadata:
+  # The name of the Deployment
+  name: backend 
+  namespace: ns-welhome
+spec:
+  # Replicas for this Deployment
+  replicas: 1
+  selector:
+    # labels the pods
+    matchLabels:
+      app: backend 
+  template:
+    metadata:
+      labels:
+        # The label the pods created from the pod template should have
+        app: backend 
+    spec:
+      containers:
+        # The container name to execute pods
+        - name: backend 
+          image: localhost:5000/backend:v1
+          ports:
+            # Assign ports to expose container
+            - containerPort: 8080
+          volumeMounts:
+            - name: backend-config
+              mountPath: usr/app/application.properties
+              subPath: application.properties
+
+      volumes:
+        - name: backend-config 
+          configMap:
+            name: backend-config 
+            items:
+              - key: application.properties
+                path: application.properties

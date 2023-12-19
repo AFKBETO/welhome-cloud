@@ -1,0 +1,19 @@
+apiVersion: v1
+# Kind for service
+kind: Service
+metadata:
+  # Name your service
+  name: backend
+  labels:
+    app: backend
+  namespace: ns-welhome
+spec:
+  # Choose how to expose your service
+  type: NodePort
+  ports:
+    # The port number to expose the service
+    - port: 8080
+      nodePort: 30092
+  # Pod to route service traffic  
+  selector:
+    app: backend

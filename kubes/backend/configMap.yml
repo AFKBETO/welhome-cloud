@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: ns-welhome
+data:
+  application.properties: |
+    databaseService.url=http://database-service:9090/api
