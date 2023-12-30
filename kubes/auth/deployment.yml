@@ -1,0 +1,32 @@
+# Kubernetes API version
+apiVersion: apps/v1
+# Deployment object
+kind: Deployment
+metadata:
+  # The name of the Deployment
+  name: auth
+  namespace: ns-welhome
+spec:
+  # Replicas for this Deployment
+  replicas: 1
+  selector:
+    # labels the pods
+    matchLabels:
+      app: auth 
+  template:
+    metadata:
+      labels:
+        # The label the pods created from the pod template should have
+        app: auth 
+    spec:
+      containers:
+        # The container name to execute pods
+        - name: auth
+          image: localhost:5000/auth:v1
+          ports:
+            # Assign ports to expose container
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: auth-config
+

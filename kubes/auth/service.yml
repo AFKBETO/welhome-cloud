@@ -1,0 +1,19 @@
+apiVersion: v1
+# Kind for service
+kind: Service
+metadata:
+  # Name your service
+  name: auth
+  labels:
+    app: auth
+  namespace: ns-welhome
+spec:
+  # Choose how to expose your service
+  type: NodePort
+  ports:
+    # The port number to expose the service
+    - port: 3001
+      nodePort: 30003
+  # Pod to route service traffic  
+  selector:
+    app: auth

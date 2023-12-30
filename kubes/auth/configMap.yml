@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+  namespace: ns-welhome
+data:
+  NODE_ENV: "production"
+  DATABASE_URL: "http://database-service:9090/api"
+  PORT: "3001"
