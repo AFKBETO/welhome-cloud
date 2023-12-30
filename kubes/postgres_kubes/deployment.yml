@@ -28,17 +28,25 @@ spec:
             # Assign ports to expose container
             - containerPort: 5432
           envFrom:
-            # Load the environment variables/PostgresSQL credentials
             - secretRef:
-                # This should be the ConfigMap name created ealier
                 name: psql-secret
           volumeMounts:
-            # The volume mounts  for the container
             - mountPath: /var/lib/postgres/data
               name: db-data
+            - name: psql-script-secret
+              mountPath: /docker-entrypoint-initdb.d/init.sql
+              subPath: init.sql
+              readOnly: true
+
       # Volumes attached to the pod
       volumes:
         - name: db-data
           persistentVolumeClaim:
             # reference the PersistentVolumeClaim
             claimName: db-persistent-volume-claim
+        - name: psql-script-secret
+          secret:
+            secretName: init-sql-secret
+            items:
+              - key: init.sql
+                path: init.sql
