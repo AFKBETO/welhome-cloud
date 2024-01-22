@@ -22,7 +22,7 @@ spec:
       containers:
         # The container name to execute pods
         - name: database-service
-          image: localhost:5000/database_service:v2
+          image: afkbeto/welhome-database-service:1.0.0
           ports:
             # Assign ports to expose container
             - containerPort: 9090
