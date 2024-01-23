@@ -5,15 +5,18 @@ metadata:
   # Name your service
   name: database-service
   labels:
-    app: database-service
+    app: welhome
+    micro-service: database-service
   namespace: ns-welhome
 spec:
   # Choose how to expose your service
-  type: NodePort
+  type: LoadBalancer
   ports:
     # The port number to expose the service
-    - port: 9090
-      nodePort: 30002
+    - name: psqldb
+      port: 9090
+      targetPort: 9090
   # Pod to route service traffic  
   selector:
-    app: database-service
+    app: welhome
+    micro-service: database-service

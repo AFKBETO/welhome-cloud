@@ -5,6 +5,9 @@ kind: Deployment
 metadata:
   # The name of the Deployment
   name: postgresdb
+  labels:
+    app: welhome
+    micro-service: postgresdb
   namespace: ns-welhome
 spec:
   # Replicas for this Deployment
@@ -12,12 +15,14 @@ spec:
   selector:
     # labels the pods
     matchLabels:
-      app: postgresdb
+      app: welhome
+      micro-service: postgresdb
   template:
     metadata:
       labels:
         # The label the pods created from the pod template should have
-        app: postgresdb
+        app: welhome
+        micro-service: postgresdb
     spec:
       containers:
         # The container name to execute pods

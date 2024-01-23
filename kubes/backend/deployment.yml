@@ -4,7 +4,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   # The name of the Deployment
-  name: backend 
+  name: welhome
+  labels:
+    app: welhome
+    micro-service: backend
   namespace: ns-welhome
 spec:
   # Replicas for this Deployment
@@ -12,12 +15,14 @@ spec:
   selector:
     # labels the pods
     matchLabels:
-      app: backend 
+      app: welhome
+      micro-service: backend 
   template:
     metadata:
       labels:
         # The label the pods created from the pod template should have
-        app: backend 
+        app: welhome
+        micro-service: backend 
     spec:
       containers:
         # The container name to execute pods

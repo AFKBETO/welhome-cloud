@@ -5,7 +5,8 @@ metadata:
   # Name your service
   name: postgresdb
   labels:
-    app: postgresdb
+    app: welhome
+    micro-service: postgresdb
   namespace: ns-welhome
 spec:
   # Choose how to expose your service
@@ -16,4 +17,5 @@ spec:
       nodePort: 30001
   # Pod to route service traffic  
   selector:
-    app: postgresdb
+    app: welhome
+    micro-service: postgresdb

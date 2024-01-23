@@ -5,15 +5,17 @@ metadata:
   # Name your service
   name: backend
   labels:
-    app: backend
+    app: welhome
+    micro-service: backend 
   namespace: ns-welhome
 spec:
   # Choose how to expose your service
-  type: NodePort
+  type: ClusterIP
   ports:
     # The port number to expose the service
     - port: 8080
-      nodePort: 30092
+      protocol: TCP
   # Pod to route service traffic  
   selector:
-    app: backend
+    app: welhome
+    micro-service: backend 
