@@ -49,6 +49,6 @@ public class ResponseGenerator<T> {
             result = restTemplate.exchange(requestUrl, method, entity, responseType);
         }
 
-        return result;
+        return new ResponseEntity(result.getBody(), result.getStatusCode());
     }
 }
