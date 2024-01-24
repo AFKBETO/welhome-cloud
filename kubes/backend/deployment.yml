@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   # The name of the Deployment
-  name: welhome
+  name: backend
   labels:
     app: welhome
     micro-service: backend
@@ -27,7 +27,7 @@ spec:
       containers:
         # The container name to execute pods
         - name: backend 
-          image: afkbeto/welhome-backend:1.0.1
+          image: afkbeto/welhome-backend:1.0.3
           ports:
             # Assign ports to expose container
             - containerPort: 8080

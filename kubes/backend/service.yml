@@ -10,11 +10,11 @@ metadata:
   namespace: ns-welhome
 spec:
   # Choose how to expose your service
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     # The port number to expose the service
     - port: 8080
-      protocol: TCP
+      targetPort: 8080
   # Pod to route service traffic  
   selector:
     app: welhome
