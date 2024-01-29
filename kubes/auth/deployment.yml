@@ -5,6 +5,9 @@ kind: Deployment
 metadata:
   # The name of the Deployment
   name: auth
+  labels:
+    app: welhome
+    micro-service: auth
   namespace: ns-welhome
 spec:
   # Replicas for this Deployment
@@ -12,20 +15,22 @@ spec:
   selector:
     # labels the pods
     matchLabels:
-      app: auth 
+      app: welhome
+      micro-service: auth
   template:
     metadata:
       labels:
         # The label the pods created from the pod template should have
-        app: auth 
+        app: welhome
+        micro-service: auth
     spec:
       containers:
         # The container name to execute pods
         - name: auth
-          image: localhost:5000/auth:v1
+          image: afkbeto/welhome-auth:1.0.5
           ports:
             # Assign ports to expose container
-            - containerPort: 3001
+            - containerPort: 9999
           envFrom:
             - configMapRef:
                 name: auth-config
