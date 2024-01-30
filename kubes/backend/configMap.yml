@@ -7,3 +7,4 @@ data:
   application.properties: |
     databaseService.url=http://database-service:9090/api
     cors.allowedOrigins=http://localhost:4200
+    authenticationService.url=https://kube.minhviet.cc/auth

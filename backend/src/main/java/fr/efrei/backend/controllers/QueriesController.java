@@ -77,29 +77,30 @@ public class QueriesController {
         // Retrieve reservations
         ResponseEntity<List<Reservation>> reservationsResult = reservationsGenerator.buildRequest(URL + "/reservations", HttpMethod.GET, new ParameterizedTypeReference<List<Reservation>>() {});
 
+        List<Property> properties = null;
+        List<Reservation> reservations = null;
         // Handle edge cases
         if (owner == null) {
             return new ResponseEntity<String>("Owner has not been found", HttpStatus.NOT_FOUND);
-        } else if (propertiesResult.getBody() == null) {
-            return new ResponseEntity<String>("Properties have not been found", HttpStatus.NOT_FOUND);
-        } else if (reservationsResult.getBody() == null) {
-            return new ResponseEntity<String>("Reservations have not been found", HttpStatus.NOT_FOUND);
-        } else if (type.isPresent() && !List.of("confirmed", "pending", "canceled").contains(type.get().toLowerCase())) {
-            return new ResponseEntity<String>("Only confirmed, pending and canceled booking types are allowed", HttpStatus.FORBIDDEN);
         }
-
-        // Filter out properties, to leave out only the ones belonging to owner
-        final List<Property> properties = propertiesResult.getBody().stream()
-                .filter(property ->
-                        property.getOwnerEmail().equals(ownerEmail)
-                ).collect(Collectors.toList());
-
-        // Filter out reservations, to leave out only the ones made for owner's properties
-        final List<Reservation> reservations = reservationsResult.getBody().stream()
+        if (propertiesResult.getBody() == null) {
+            properties = new ArrayList<>();
+        } else {
+            // Filter out properties, to leave out only the ones belonging to owner
+            properties = propertiesResult.getBody().stream()
+                    .filter(property ->
+                            property.getOwnerEmail().equals(ownerEmail)
+                    ).collect(Collectors.toList());
+        }
+        if (reservationsResult.getBody() == null) {
+            reservations = new ArrayList<>();
+        } else {
+            // Filter out reservations, to leave out only the ones made for owner's properties
+            reservations = reservationsResult.getBody().stream()
                 .filter(reservation ->
                         propertiesResult.getBody().stream()
                                 .anyMatch(property ->
-                                    property.getOwnerEmail().equals(ownerEmail) && reservation.getPropertyId().compareTo(property.getId()) == 0
+                                        property.getOwnerEmail().equals(ownerEmail) && reservation.getPropertyId().compareTo(property.getId()) == 0
                                 )
                                 // If reservation type is specified, filter accordingly
                                 && (type.isPresent()
@@ -116,6 +117,11 @@ public class QueriesController {
                                 // If no reservation type is specified, any type will do
                                 : true)
                 ).collect(Collectors.toList());
+        }
+
+        if (type.isPresent() && !List.of("confirmed", "pending", "canceled").contains(type.get().toLowerCase())) {
+            return new ResponseEntity<String>("Only confirmed, pending and canceled booking types are allowed", HttpStatus.FORBIDDEN);
+        }
 
         // Create OwnerBookedProperties DTO
         OwnerBookedProperties ownerBookedProperties = new OwnerBookedProperties();
@@ -123,7 +129,6 @@ public class QueriesController {
         ownerBookedProperties.setProperties(properties);
         ownerBookedProperties.setBookings(reservations);
 
-        ResponseEntity<OwnerBookedProperties> result = new ResponseEntity<>(ownerBookedProperties, HttpStatus.OK);
-        return result;
+        return new ResponseEntity<>(ownerBookedProperties, HttpStatus.OK);
     }
 }

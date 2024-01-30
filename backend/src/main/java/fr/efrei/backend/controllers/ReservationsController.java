@@ -27,8 +27,6 @@ import java.util.*;
 public class ReservationsController {
     @Value("${databaseService.url}/reservations")
     private String URL;
-    @Value("${mailingService.url}/mail")
-    private String MAILING_SERVICE_URL;
 
     // Singleton instances of ResponseGenerator
     private ResponseGenerator<List<Reservation>> listGenerator;         // to send out JSON array in Response
@@ -83,12 +81,6 @@ public class ReservationsController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(bearerToken.split("\\s") [1]);
-        // Send request to mailing service
-        ResponseEntity<String> mailResult = restTemplate.exchange(MAILING_SERVICE_URL, HttpMethod.POST, new HttpEntity<String>(body.toString(), headers), String.class);
-
-        // Parse response
-        if (mailResult.getBody() != null)
-            System.out.println("Sending reservation email. Status: " + new JSONObject(mailResult.getBody()).get("message"));
 
         return result;
     }

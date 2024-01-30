@@ -14,11 +14,12 @@ import java.util.Map;
 @Slf4j
 @Component
 public class RequestInterceptor implements HandlerInterceptor {
-    @Value("${authenticationService.url}/checkToken")
+    @Value("${authenticationService.url}/verify")
     private String URL;
     private static final String AUTHORIZATION = "Authorization";
     private static final Map<String, String> WHITELIST = Map.ofEntries(
             Map.entry("/api/properties", "GET"),
+            Map.entry("/api/properties/property", "GET"),
             Map.entry("/api/reviews", "GET")
     );
 

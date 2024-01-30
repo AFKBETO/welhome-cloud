@@ -82,7 +82,7 @@ public class ResponseGenerator<T> {
         // Empty List<T> ~ body or not found resource should be followed back with 404 status code according to this discussion:
         // https://stackoverflow.com/questions/11746894/what-is-the-proper-rest-response-code-for-a-valid-request-but-an-empty-data
         else if ((result.getBody() == null || (result.getBody() instanceof List<?> && ((List<?>) result.getBody()).isEmpty())))
-            result = new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            result = new ResponseEntity<>(result.getBody(), HttpStatus.OK);
         else
             result = new ResponseEntity<>(result.getBody(), result.getStatusCode());
 

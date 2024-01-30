@@ -292,7 +292,8 @@ public class PropertiesController {
                                                                          @RequestParam(value="min_floors") Optional<Long> minFloors, @RequestParam(value="max_floors") Optional<Long> maxFloors,
                                                                          @RequestParam(value="min_capacity") Optional<Long> minCapacity, @RequestParam(value="max_capacity") Optional<Long> maxCapacity,
                                                                          @RequestParam(value="min_construction_date") Optional<Date> minConstructionDate, @RequestParam(value="max_construction_date") Optional<Date> maxConstructionDate) {
-        ResponseEntity<List<Property>> allProperties = listGenerator.buildRequest(URL, HttpMethod.GET, new ParameterizedTypeReference<List<Property>>() {});
+        ResponseEntity<List<Property>> allProperties = listGenerator.buildRequest(URL, HttpMethod.GET, new ParameterizedTypeReference<List<Property>>() {
+        });
 
         try {
             StringBuilder message = new StringBuilder();
@@ -303,8 +304,8 @@ public class PropertiesController {
                 message.append("\nCategory can only be one of 3 three types: House, Apartment, Room");
 
             if ((countries.isPresent() && states.isPresent() && (countries.get().stream().anyMatch(country -> states.get().stream().map(state -> state.toLowerCase()).collect(Collectors.toList()).contains(country.toLowerCase())))
-            || (countries.isPresent() && cities.isPresent() && (countries.get().stream().anyMatch(country -> cities.get().stream().map(city -> city.toLowerCase()).collect(Collectors.toList()).contains(country.toLowerCase())))
-            || states.isPresent() && cities.isPresent() && (states.get().stream().anyMatch(state -> cities.get().stream().map(city -> city.toLowerCase()).collect(Collectors.toList()).contains(state.toLowerCase()))))))
+                    || (countries.isPresent() && cities.isPresent() && (countries.get().stream().anyMatch(country -> cities.get().stream().map(city -> city.toLowerCase()).collect(Collectors.toList()).contains(country.toLowerCase())))
+                    || states.isPresent() && cities.isPresent() && (states.get().stream().anyMatch(state -> cities.get().stream().map(city -> city.toLowerCase()).collect(Collectors.toList()).contains(state.toLowerCase()))))))
                 message.append("\nCountry, state & city must all be distinct values");
 
             if (minPrice.isPresent() && maxPrice.isPresent() && (maxPrice.get().compareTo(minPrice.get()) <= 0))
@@ -328,6 +329,9 @@ public class PropertiesController {
                 throw new CheckingQueryParametersFailedException(message.toString());
         } catch (CheckingQueryParametersFailedException exception) {
             return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        if (allProperties.getBody() == null || allProperties.getBody().isEmpty()) {
+            return new ResponseEntity<String>("No properties have been found", HttpStatus.NOT_FOUND);
         }
 
         List<Property> properties = allProperties.getBody().stream().filter(property ->
