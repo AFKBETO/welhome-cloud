@@ -20,7 +20,6 @@ spec:
   template:
     metadata:
       labels:
-        # The label the pods created from the pod template should have
         app: welhome
         micro-service: database-service
     spec:
