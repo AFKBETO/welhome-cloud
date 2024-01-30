@@ -1,5 +1,6 @@
 package fr.efrei.backend;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,6 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class BackendApplication {
+
+	@Value("${cors.allowedOrigins}")
+	private String allowedOrigins;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -19,13 +24,14 @@ public class BackendApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/*").allowedOrigins("*");
+				System.out.println("CORS allowed origins: " + allowedOrigins);
+				registry.addMapping("/**").allowedOrigins(allowedOrigins.split(","));
 			}
 		};
 	}
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
 	}
+		return builder.build();
 }

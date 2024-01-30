@@ -63,13 +63,13 @@ public class PropertyEntity {
     @Column(name = "owner_email")
     private String ownerEmail;
     @Basic
-    @Column(name = "image_url_1")
+    @Column(name = "image_url1")
     private String imageUrl1;
     @Basic
-    @Column(name = "image_url_2")
+    @Column(name = "image_url2")
     private String imageUrl2;
     @Basic
-    @Column(name = "image_url_3")
+    @Column(name = "image_url3")
     private String imageUrl3;
 
     @Override

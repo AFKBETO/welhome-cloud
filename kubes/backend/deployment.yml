@@ -27,7 +27,7 @@ spec:
       containers:
         # The container name to execute pods
         - name: backend 
-          image: afkbeto/welhome-backend:1.0.3
+          image: afkbeto/welhome-backend:1.0.5
           ports:
             # Assign ports to expose container
             - containerPort: 8080
