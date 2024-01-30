@@ -1,5 +1,5 @@
 # Welhome
-Welhome is an online platform that connects property owners with potential renters. Property owners can easily list their houses, apartments, and rooms for rent, and users can browse through the available properties and make reservations according to their needs. The platform provides a user-friendly and secure way for renters to communicate with property owners, make reservations, and ask questions about the properties. Welhome's main focus is on providing a platform that simplifies the rental process and ensures a smooth and hassle-free experience for all parties involved.
+[Welhome](https://welhome.minhviet.cc) is an online platform that connects property owners with potential renters. Property owners can easily list their houses, apartments, and rooms for rent, and users can browse through the available properties and make reservations according to their needs. The platform provides a user-friendly and secure way for renters to communicate with property owners, make reservations, and ask questions about the properties. Welhome's main focus is on providing a platform that simplifies the rental process and ensures a smooth and hassle-free experience for all parties involved.
 
 More info on our [Project Report (FR)](https://github.com/ZA1NZAFAR/welhome/blob/prod/Rapport%20PDF.pdf)
 
@@ -12,8 +12,6 @@ More info on our [Project Report (FR)](https://github.com/ZA1NZAFAR/welhome/blob
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Angular](https://angular.io/)
 - [Node.js](https://nodejs.org/en/)
-- [React](https://reactjs.org/)
-- [Express](https://expressjs.com/)
 - and many more...
 
 ## Contributors
