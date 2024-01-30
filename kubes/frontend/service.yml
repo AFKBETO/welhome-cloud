@@ -1,0 +1,21 @@
+apiVersion: v1
+# Kind for service
+kind: Service
+metadata:
+  # Name your service
+  name: frontend
+  labels:
+    app: welhome
+    micro-service: frontend 
+  namespace: ns-welhome
+spec:
+  # Choose how to expose your service
+  type: LoadBalancer
+  ports:
+    # The port number to expose the service
+    - port: 80
+      targetPort: 80
+  # Pod to route service traffic  
+  selector:
+    app: welhome
+    micro-service: frontend 

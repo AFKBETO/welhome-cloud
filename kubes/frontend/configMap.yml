@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: ns-welhome
+data:
+  env_front: |
+    var environmentJS = {
+      production: true,
+      authUrl: 'https://kube.minhviet.cc/auth', 
+      backEndUrl: 'https://backendkube.minhviet.cc/api' 
+    };
