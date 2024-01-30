@@ -64,8 +64,12 @@ public class PropertyService implements CRUD<PropertyEntity, Long>{
             existingProperty.setSurfaceArea(updatedProperty.getSurfaceArea());
         if (!Tools.isNullOrEmpty(updatedProperty.getPrice()))
             existingProperty.setPrice(updatedProperty.getPrice());
-        if (!Tools.isNullOrEmpty(updatedProperty.getImageUrl()))
-            existingProperty.setImageUrl(updatedProperty.getImageUrl());
+        if (!Tools.isNullOrEmpty(updatedProperty.getImageUrl1()))
+            existingProperty.setImageUrl1(updatedProperty.getImageUrl1());
+        if (!Tools.isNullOrEmpty(updatedProperty.getImageUrl2()))
+            existingProperty.setImageUrl2(updatedProperty.getImageUrl2());
+        if (!Tools.isNullOrEmpty(updatedProperty.getImageUrl3()))
+            existingProperty.setImageUrl3(updatedProperty.getImageUrl3());
 
         return propertyRepository.save(existingProperty);
     }
