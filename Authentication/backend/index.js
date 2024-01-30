@@ -21,9 +21,10 @@ app.use(express.json());
 app.use(cors('*'));
 
 app.post('/login', async (req, res) => {
+	const { email } = req.body;
 	res.status(200).json({
 		access_token: 'test',
-		email: 'example@test.com'
+		email: email
 	});
 });
 

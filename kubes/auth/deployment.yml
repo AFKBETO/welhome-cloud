@@ -27,7 +27,7 @@ spec:
       containers:
         # The container name to execute pods
         - name: auth
-          image: afkbeto/welhome-auth:1.0.5
+          image: afkbeto/welhome-auth:1.0.6
           ports:
             # Assign ports to expose container
             - containerPort: 9999
