@@ -6,6 +6,7 @@ export interface IProperty {
   address: string,
   city: string,
   state?: string,
+  zipCode: string,
   country: string,
   price: number,
   surfaceArea: number,

@@ -38,6 +38,7 @@ export class PropertyFormComponent implements OnInit {
       address: new FormControl('', [Validators.required]),
       city: new FormControl('', [Validators.required]),
       state: new FormControl(''),
+      zipCode: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
       price: new FormControl('', [Validators.required, Validators.min(0)]),
       surfaceArea: new FormControl('', [Validators.required, Validators.min(0)]),

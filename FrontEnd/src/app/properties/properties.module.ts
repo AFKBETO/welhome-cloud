@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReviewModalComponent } from './review-modal/review-modal.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginModule } from '../commons/login/login.module';
 
 
 
@@ -31,7 +32,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatNativeDateModule,
     NgbModalModule,
     MatInputModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LoginModule
   ]
 })
 export class PropertiesModule { }

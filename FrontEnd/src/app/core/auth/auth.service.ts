@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IProfile } from './auth.model';
 import { environment } from 'src/environments/environment';
@@ -14,7 +14,7 @@ interface IRefreshToken {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService {
   /**
    * The mock token to test stuffs
    * Generated via https://jwt.io/
@@ -45,49 +45,21 @@ export class AuthService implements OnInit {
     private contextService: ContextService,
     private http: HttpClient
   ) { }
-  ngOnInit( ): void {
-    setInterval(this.refreshToken, 5 * 60 * 1000);
-  }
-  refreshToken() {
-    this.http.get<IRefreshToken>(`${environment.authUrl}/auth/refresh-token`).subscribe({
-      next: (data) => {
-        localStorage.setItem('token', data.access_token);
-      },
-      error: (err) => {
-        this.logout();
-        this.toast.showError('Session invalid');
-      },
-      complete: () => {
-        this.router.navigate([this.router.url])
-      }
-    });
-  }
-  
+
   startupToken(): void {
     const token = localStorage.getItem('token');
   }
 
-  login(): void {
-    const loginWindow = window.open(`${environment.authUrl}/auth/google`, 'Authentication', 'height=800,width=600');
-    if (loginWindow !== null) {
-      //loginWindow.focus();
-      window.addEventListener('message', event => {
-        if (event.source !== loginWindow) {
-          return;
-        }
-        const data = event.data.data;
-        if (data.access_token !== undefined && data.email !== undefined) {
-          localStorage.setItem('token', data.access_token);
-          localStorage.setItem('email', data.email);
-          this.toast.showSuccess('Logged in');
-        }
-        else {
-          this.toast.showError('Login failed');
-        }
-        loginWindow.close();
-      }, { once: false });
-    }
-    
+  login(email?: string): void {
+    const body = {
+      email
+    };
+    this.http.post<IRefreshToken>(`${environment.authUrl}/login`, body).subscribe((res: IRefreshToken) => {
+      localStorage.setItem('token', res.access_token);
+      localStorage.setItem('email', res.email);
+      this.toast.showSuccess('Logged in');
+      this.contextService.setContext('RENTER');
+    });
   }
 
   get profile(): IProfile | null {

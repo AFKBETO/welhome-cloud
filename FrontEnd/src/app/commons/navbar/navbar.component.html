@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="'.'">
       <img class="img-fluid" src="assets/logo.png" alt="Logo" width="150" height="150">
-    </a> 
+    </a>
     <button class="navbar-toggler" type="button">
      <span class="navbar-toggler-icon" (click)="isCollapsed = !isCollapsed"></span>
     </button>
@@ -24,11 +24,11 @@
             <div class="text-danger error-text" *ngIf="!this.selectionControl.valid">
               Please choose a valid destination in the suggestions.
             </div>
-          </form>    
+          </form>
         </li>
         <li class="Login end-button">
           <button class="ms-auto nav-item" type="button" mat-mini-fab matTooltip="Login"
-          (click)="this.login()" *ngIf="!this.isLoggedIn; else loggedIn">
+          (click)="this.openLoginModal()" *ngIf="!this.isLoggedIn; else loggedIn">
           Login
         </button>
         <ng-template #loggedIn>

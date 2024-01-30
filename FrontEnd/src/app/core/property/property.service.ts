@@ -43,7 +43,7 @@ export class PropertyService {
   constructQuery(): string {
     let query = '';
     const { minPrice, maxPrice, category, city, country } = this.filterService;
-    
+
     if (minPrice) {
       query += `min_price=${minPrice}`;
     }
@@ -89,10 +89,17 @@ export class PropertyService {
       this.propertySubscription.unsubscribe();
     }
     this.propertyLoadingSubject.next(true);
-    this.propertySubscription = this.http.get<IProperty[]>(`${environment.backEndUrl}/properties/property?${this.constructQuery()}`).subscribe((properties) => {
-      this.propertySubject.next(properties);
-      this.propertyLoadingSubject.next(false);
-    });
+    this.propertySubscription = this.http.get<IProperty[]>(`${environment.backEndUrl}/properties/property?${this.constructQuery()}`).subscribe({
+      next: (properties) => {
+        this.propertySubject.next(properties);
+      },
+      error: (err) => {
+        this.propertySubject.next([]);
+      },
+      complete: () => {
+        this.propertyLoadingSubject.next(false);
+      },
+    })
     return this;
   }
 

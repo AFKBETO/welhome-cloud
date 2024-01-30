@@ -8,6 +8,7 @@ import { PropertyService } from 'src/app/core/property/property.service';
 import { FilterComponent } from './filter/filter.component';
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-navbar',
@@ -59,10 +60,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.authService.isLoggedIn;
   }
 
-  login(): void {
-    this.authService.login();    
-  }
-
   logout(): void {
     this.authService.logout();
   }
@@ -84,6 +81,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   setActiveClass(path: string): string {
     return (path === '/properties' && this.router.url === '/') || this.router.url.includes(path) ? 'nav-link btn-scale btn-outline-none active' : 'nav-link btn-scale btn-outline-none';
+  }
+
+  openLoginModal() {
+    this.modalService.open(LoginComponent);
   }
 
   openFilterModal() {

@@ -16,6 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReviewModalComponent } from './review-modal/review-modal.component';
 import { IconDefinition, faStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faSolidStar, faStarHalfAlt, faCheck, faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
+import { LoginComponent } from '../commons/login/login.component';
 
 class DateErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -88,7 +89,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
           reviewSub$.unsubscribe();
         });
 
-        
+
         if (!!this.propertyData.imageUrl1) {
           this.images.push(this.propertyData.imageUrl1);
         }
@@ -172,7 +173,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
   }
 
   promptLogin(): void {
-    this.authService.login();
+    this.modalService.open(LoginComponent);
   }
 
   reserveProperty(): void {

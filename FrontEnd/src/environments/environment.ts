@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  authUrl: 'https://backend.zain.ovh', //'http://localhost:3001',
-  backEndUrl: 'http://zain.ovh:9092/api' //'http://localhost:9092/api',
+  authUrl: 'https://kube.minhviet.cc/auth', //'http://localhost:3001',
+  backEndUrl: 'https://backendkube.minhviet.cc/api' //'http://localhost:9092/api',
 };
 
 /*

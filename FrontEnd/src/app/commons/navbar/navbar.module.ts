@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSliderModule } from '@angular/material/slider'; 
+import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +14,7 @@ import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { MatSelectModule } from '@angular/material/select';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginModule } from '../login/login.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     MatSelectModule,
     NgbCollapseModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    LoginModule
   ],
   exports: [ NavbarComponent ],
   providers: [ ]

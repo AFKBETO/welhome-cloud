@@ -15,15 +15,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private toastService: ToastService,
-    private authService: AuthService
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
       switch (error.status) {
-        case 401:
-          this.authService.refreshToken();
-          break;
         case 403:
           this.toastService.showError('You are not authorized to perform this action');
           break;
