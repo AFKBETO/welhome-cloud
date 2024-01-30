@@ -13,7 +13,7 @@ spec:
   type: LoadBalancer
   ports:
     # The port number to expose the service
-    - port: 80
+    - port: 9080
       targetPort: 80
   # Pod to route service traffic  
   selector:
